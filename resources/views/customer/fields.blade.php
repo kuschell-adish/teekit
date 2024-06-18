@@ -3,7 +3,7 @@
 <div class="bg-custom-gray">
 <div class="flex flex-row flex justify-around mx-10">
     <div class="w-1/3 p-10 ">
-        <form action="/register" method="POST" enctype="multipart/form-data">
+        <form action="/customer/register" method="POST" enctype="multipart/form-data">
             @csrf
                 <label for="profile_picture" class="text-sm">Profile Picture</label>
                 <img src="../images/user.png" alt="Default Profile Picture" class="w-20 h-20 mb-3 mt-2">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,6 @@ Route::get('/login/view', function () {
     return view('authentication.login');
 });
 
-
 //email notif
 Route::get('/mail/send', [CustomerController::class, 'index']);
 
@@ -40,5 +40,9 @@ Route::get('/mail/resend', [CustomerController::class, 'resend']);
 Route::get('/forms', [CustomerController::class, 'forms']);
 
 //post data to database
-Route::post('/register', [CustomerController::class, 'register']); 
+Route::post('/customer/register', [CustomerController::class, 'register']); 
+
+//post data to database
+Route::post('/user/register', [UserController::class, 'register']); 
+
 
