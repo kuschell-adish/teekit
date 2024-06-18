@@ -88,19 +88,7 @@ class CustomerController extends Controller
             $customer->save();
         
             return view('authentication.login'); 
-    }
-
-    public function login (Request $request) {
-        $validated = $request->validate([
-            "email" => ['required', 'email'], 
-            "password" => 'required'
-        ]); 
-        if (auth()->attempt($validated)){
-            $request->session()->regenerate();
-            return redirect('/dashboard'); 
-        }
-        return back()->withErrors(['email' => 'The email and password do not match.'])->onlyInput('email'); 
-    }
+    } 
 
 
 }

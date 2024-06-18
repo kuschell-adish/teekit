@@ -42,5 +42,3 @@ Route::get('/forms', [CustomerController::class, 'forms']);
 //post data to database
 Route::post('/register', [CustomerController::class, 'register']); 
 
-//login-customer
-Route::post('/login', [CustomerController::class, 'login']); 
