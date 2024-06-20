@@ -1,5 +1,15 @@
 @include('partials.header', ['title' => 'adish HAP | Customer Forms'])
 @include('partials.nav')
+<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
+    <ul class="flex flex-wrap -mb-px">
+        <li class="me-2">
+            <a href="/user/forms" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">Create New User</a>
+        </li>
+        <li class="me-2">
+            <a href="/customer/forms" class="inline-block p-4 text-custom-orange border-b-2 border-custom-orange rounded-t-lg">Create New Customer</a>
+        </li>
+    </ul>
+</div>
 <div class="bg-custom-gray">
 <div class="flex flex-row flex justify-around mx-10">
     <div class="w-1/3 p-10 ">
@@ -14,11 +24,16 @@
                 @enderror
 
                 <label for="email" class="text-sm">Work Email</label>
-                <input type="text" name="email" id="email" class="mt-2 mb-5 w-full bg-[#EAEAEA] p-2 text-sm rounded-sm" value="{{$email}}" readonly>
+                <input type="text" name="email" id="email" placeholder="Enter the work email" class="mt-2 mb-4 w-full border-[1px] border-black p-2 text-sm rounded-sm" required>
+                @error('email')
+                <p class="text-xs text-red-700 mt-2">{{$message}}</p>
+                @enderror
+                <label for="password" class="text-sm">Default Password</label>
+                <input type="password" name="password" id="password" class="mt-2 mb-7 w-full bg-[#EAEAEA] p-2 text-sm rounded-sm" value="Admin123!" readonly>
 
-                <label for="password" class="text-sm">Password</label>
+                {{-- <label for="password" class="text-sm">Password</label>
                 <input type="password" name="password" id="password" placeholder="Enter your password" class="mt-2 w-full border-[1px] border-black p-2 text-sm rounded-sm" required>
-                <p class="text-xs text-gray-400">Passwords must be 8 characters long, and must contain one lowercase letter, one uppercase letter, one number, and one symbol.  </p>
+                <p class="text-xs text-gray-400 mb-2">Passwords must be 8 characters long, and must contain one lowercase letter, one uppercase letter, one number, and one symbol.  </p>
                 @error('password')
                 <p class="text-xs text-red-700 mt-2">{{$message}}</p>
                 @enderror
@@ -27,27 +42,27 @@
                 <input type="password" name="confirm_password" id="confirm_password" placeholder="Re-type your password" class="mt-2 w-full border-[1px] border-black p-2 text-sm rounded-sm" required>
                 @error('confirm_password')
                 <p class="text-xs text-red-700 mt-2">{{$message}}</p>
-                @enderror
+                @enderror --}}
     </div>
     <div class="w-1/3 p-10 m-7">
                 <label for="first_name" class="text-sm">First Name</label>
-                <input type="text" name="first_name" id="first_name" placeholder="Enter your first name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('first_name')}}">
+                <input type="text" name="first_name" id="first_name" placeholder="Enter the first name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('first_name')}}">
                 @error('first_name')
                 <p class="text-xs text-red-700 mt-2">{{$message}}</p>
                 @enderror
 
                 <label for="middle_name" class="text-sm">Middle Name</label>
-                <input type="text" name="middle_name" id="middle_name" placeholder="Enter your middle name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" value="{{old('middle_name')}}">
+                <input type="text" name="middle_name" id="middle_name" placeholder="Enter the middle name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" value="{{old('middle_name')}}">
 
                 <label for="last_name" class="text-sm">Last Name</label>
-                <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('last_name')}}">
+                <input type="text" name="last_name" id="last_name" placeholder="Enter the last name" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('last_name')}}">
                 @error('last_name')
                 <p class="text-xs text-red-700 mt-2">{{$message}}</p>
                 @enderror
 
                 <label for="company" class="text-sm">Company</label>
                 <select name="company" id="company" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required>
-                    <option value="" {{ old('company') == "" ? 'selected' : '' }}>Select your company</option>
+                    <option value="" {{ old('company') == "" ? 'selected' : '' }}>Select the company</option>
                     <option value="Jollibee" {{ old('company') == "Jollibee" ? 'selected' : '' }}>Jollibee</option>
                     <option value="McDo" {{ old('company') == "McDo" ? 'selected' : '' }}>McDo</option>
                     <option value="Llao Llao" {{ old('company') == "Llao Llao" ? 'selected' : '' }}>Llao Llao</option>
@@ -58,7 +73,7 @@
                 @enderror
 
                 <label for="position" class="text-sm">Position</label>
-                <input type="text" name="position" id="position" placeholder="Enter your position" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('position')}}">
+                <input type="text" name="position" id="position" placeholder="Enter the position" class="mt-2 mb-7 w-full border-[1px] border-black p-2 text-sm rounded-sm" required value="{{old('position')}}">
                 @error('position')
                 <p class="text-xs text-red-700 mt-2">{{$message}}</p>
                 @enderror

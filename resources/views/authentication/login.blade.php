@@ -5,7 +5,7 @@
             <p class="text-4xl font-bold">Empowering support, one ticket at a time with adish HAP.</p>
         </div>
         <div class="w-1/4">
-            <form action="/login" method="POST">
+            <form action="/process" method="POST">
                 @csrf
                     <p class="text-sm">Work Email</p>
                     <input type="text" name="email" id="email" placeholder="Enter your work email" class="mt-2 mb-5 w-full border-[1px] border-black p-1.5 text-sm rounded-sm" required value={{old('email')}} >

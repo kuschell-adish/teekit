@@ -16,28 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('authentication.signup');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/login/view', function () {
     return view('authentication.login');
 });
+
+Route::get('/verify', function () {
+    return view('authentication.verify');
+});
+
 
 //email notif
 Route::get('/mail/send', [CustomerController::class, 'index']);
 
-//verification with email address view 
-Route::get('/verification', [CustomerController::class, 'verification']);
-
-//resend email 
-Route::get('/mail/resend', [CustomerController::class, 'resend']);
-
-//get customer or user forms 
-Route::get('/forms', [CustomerController::class, 'forms']);
 
 //post data to database
 Route::post('/customer/register', [CustomerController::class, 'register']); 
@@ -45,4 +34,11 @@ Route::post('/customer/register', [CustomerController::class, 'register']);
 //post data to database
 Route::post('/user/register', [UserController::class, 'register']); 
 
+//login as superuser
+Route::post('/process', [UserController::class, 'process']); 
+
+
+Route::get('/customer/forms', [CustomerController::class, 'forms']); 
+
+Route::get('/user/forms', [UserController::class, 'forms']); 
 

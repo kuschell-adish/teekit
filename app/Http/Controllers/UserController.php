@@ -4,9 +4,24 @@ namespace App\Http\Controllers;
 use App\Models\User; 
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserMail;
 
 class UserController extends Controller
-{
+{   
+    protected $mailtrapEmail, $oneTimePassword;
+
+    public function __construct()
+    {
+        $this->mailtrapEmail = env('EMAIL');
+        $this->oneTimePassword = env('PASSWORD');
+    }
+
+    public function forms () {
+        return view ('user.fields'); 
+    }
+
     public function register(Request $request) {
         $validated = $request->validate([
             "profile_picture" => 'image|mimes:jpeg,png,bmp,tiff|max:2048', 
@@ -28,7 +43,7 @@ class UserController extends Controller
             "position" => ['required'],
         ]); 
 
-        $hashedPassword = hash('sha256', $validated['password']); 
+        $hashedPassword = Hash::make($validated['password']);
         $validated['password'] = $hashedPassword;
         unset($validated['confirm_password']);
     
@@ -43,12 +58,29 @@ class UserController extends Controller
             $imagePath = $uploadedFile->store('profile_picture', 'public'); 
             $user->profile_picture = $imagePath;
         }
-        else {
-           //NULL in the database
-        }
-    
+        
         $user->save();
-    
+        Mail::to($this->mailtrapEmail)->send(new UserMail($validated['email']));
+        $request->session()->put('email', $validated['email']);
         return view('authentication.login'); 
     } 
+
+    public function process (Request $request) {
+        $validated = $request->validate([
+            "email" => ['required', 'email'], 
+            "password" => 'required'
+        ]); 
+
+        if ($validated['password'] === ($this->oneTimePassword)) {
+            $request->session()->regenerate();
+            return view('authentication.verify', ['email' => $validated['email']]);
+        }
+
+        else if (auth()->attempt($validated)){
+            $request->session()->regenerate();
+            return view('user.fields'); 
+        }
+
+        return back()->withErrors(['email' => 'The email and password do not match.'])->onlyInput('email'); 
+    }
 }
